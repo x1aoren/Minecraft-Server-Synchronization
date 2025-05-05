@@ -1,12 +1,22 @@
 # Minecraft服务端和代理同步工具
 
-这是一个用Python编写的Minecraft同步工具，可以自动下载并同步PaperMC旗下的所有项目到指定目录，每个版本存放在独立的文件夹中，并下载每个版本的所有可用文件。
+这是一个用Python编写的Minecraft同步工具，可以自动下载并同步多个项目的所有版本到指定目录，每个版本存放在独立的文件夹中，并下载每个版本的所有可用文件。
 
 ## 支持的项目
 
+### PaperMC 项目
 - **Paper**: 高性能的Minecraft服务端
 - **Velocity**: 现代的Minecraft代理服务器
 - **Waterfall**: 针对BungeeCord优化的代理服务器
+
+### PurpurMC 项目
+- **Purpur**: 基于Paper的高性能服务端，带有额外功能
+
+### SpigotMC 项目
+- **Spigot**: 流行的Minecraft服务端
+- **Bukkit**: Minecraft服务端API
+- **CraftBukkit**: 实现Bukkit API的Minecraft服务端
+- **BungeeCord**: 多服务器代理
 
 ## 功能特点
 
@@ -14,7 +24,7 @@
 - 同步每个版本的所有可用文件（不仅仅是JAR文件）
 - 按版本号整理（例如：content/paper/1.16.5/）
 - 可作为服务持续运行，定期检查更新
-- 文件SHA256校验确保下载完整性
+- 文件SHA256校验确保下载完整性（对于提供此信息的项目）
 - 下载进度实时显示
 - 详细的日志记录
 - 版本信息保存，避免重复下载
@@ -46,8 +56,8 @@ python main.py
 脚本会自动：
 1. 获取所有项目的所有版本
 2. 为每个版本创建独立目录（例如：content/paper/1.16.5/）
-3. 下载每个版本的所有可用文件（主JAR、源代码、文档等）
-4. 验证文件完整性
+3. 下载每个版本的所有可用文件
+4. 验证文件完整性（对于提供校验和的项目）
 
 ### 作为服务运行
 
@@ -81,25 +91,33 @@ python scheduler.py -r
 content/
 ├── paper/
 │   ├── 1.8.8/
-│   │   ├── paper-1.8.8-445.jar        # 主JAR文件
-│   │   ├── paper-1.8.8-445-sources.jar # 源代码文件
-│   │   ├── paper-1.8.8-445-mojang.jar # Mojang映射文件
-│   │   └── version_info.json          # 版本信息
-│   ├── 1.16.5/
-│   │   ├── paper-1.16.5-794.jar
-│   │   ├── paper-1.16.5-794-sources.jar
+│   │   ├── paper-1.8.8-445.jar
+│   │   ├── paper-1.8.8-445-sources.jar
 │   │   └── version_info.json
 │   └── ...
 ├── velocity/
 │   ├── 3.1.1/
 │   │   ├── velocity-3.1.1-103.jar
-│   │   ├── velocity-3.1.1-103-api.jar
 │   │   └── version_info.json
 │   └── ...
-└── waterfall/
-    ├── 1.18/
-    │   ├── waterfall-1.18-498.jar
-    │   ├── waterfall-1.18-498-api.jar
+├── waterfall/
+│   ├── 1.18/
+│   │   ├── waterfall-1.18-498.jar
+│   │   └── version_info.json
+│   └── ...
+├── purpur/
+│   ├── 1.19.4/
+│   │   ├── purpur-1.19.4-2050.jar
+│   │   └── version_info.json
+│   └── ...
+├── spigot/
+│   ├── 1.20.4/
+│   │   ├── Spigot-1.20.4.jar
+│   │   └── version_info.json
+│   └── ...
+└── bungeecord/
+    ├── 1.20/
+    │   ├── BungeeCord-1.20.jar
     │   └── version_info.json
     └── ...
 ```
@@ -145,6 +163,14 @@ WantedBy=multi-user.target
 sudo systemctl enable minecraft-sync
 sudo systemctl start minecraft-sync
 ```
+
+## 项目来源
+
+本工具从以下官方来源获取服务端/代理文件:
+
+- PaperMC: https://papermc.io/
+- PurpurMC: https://purpurmc.org/
+- SpigotMC/Bukkit: https://getbukkit.org/
 
 ## 许可证
 
