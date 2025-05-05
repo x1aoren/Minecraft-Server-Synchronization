@@ -1,0 +1,14 @@
+[Unit]
+Description=Minecraft Server Sync Service
+After=network.target
+
+[Service]
+Type=simple
+User=minecraft
+WorkingDirectory=/opt/minecraft-sync
+ExecStart=/usr/bin/python3 /opt/minecraft-sync/scheduler.py -i 12
+Restart=on-failure
+RestartSec=60
+
+[Install]
+WantedBy=multi-user.target 
